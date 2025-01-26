@@ -1,10 +1,14 @@
-Below is a detailed README template for your GitHub repository, structured to align with your SWE Backend assignment requirements. 
+Here's an updated version of your README to address potential inconsistencies and clarify the setup and API details. Changes include corrections to commands, descriptions, and structure for better accuracy and readability. 
 
-### **README Template for User Backend**
+---
+
+### **README for User Backend**
 ```markdown
 # User Backend
 
 This backend service handles user-specific functionalities, including authentication, note management, and secure data sharing with the Admin Backend.
+
+---
 
 ## **Features**
 1. **Authentication**
@@ -12,19 +16,24 @@ This backend service handles user-specific functionalities, including authentica
    - `POST /auth/login`: Log in as a user and receive a JWT.
 
 2. **User-Specific Operations**
-   - `GET /notes`: Fetch all notes of the authenticated user.
+   - `GET /notes`: Fetch all notes for the authenticated user.
    - `POST /notes`: Create a new note.
    - `PATCH /notes/:id`: Update a specific note.
    - `DELETE /notes/:id`: Delete a specific note.
 
-3. **Shared Data Access**
-   - `GET /admin/notes`: Expose limited notes data to the Admin Backend (restricted to authorized admin tokens).
+3. **Secret API for Admin Backend**
+   - `GET /admin/notes`: Fetch all notes data for admin (restricted to admin tokens).
+   - `GET /admin/users`: Fetch all users registered in Backend 1.
+   - `GET /admin/users/:id`: Fetch details of a specific user.
+   - `DELETE /admin/users/:id`: Delete a specific user.
+
+---
 
 ## **Setup Instructions**
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo-name.git
-   cd UserBackend
+   git clone https://github.com/Sahil1551/Medoc_Assignment1.git
+   cd .\Backend1\
    ```
 
 2. Install dependencies:
@@ -32,28 +41,33 @@ This backend service handles user-specific functionalities, including authentica
    npm install
    ```
 
-3. Configure environment variables:
-   Create a `.env` file in the root directory and add:
-   ```env
-   MONGO_URI=<Your MongoDB URI>
-   JWT_SECRET=<Your JWT Secret>
+
+3. Start the server:
+   ```bash
+   node dist/server.js
    ```
 
-4. Start the server:
-   ```bash
-   npm start
-   ```
+---
 
 ## **API Endpoints**
 | Endpoint             | Method | Description                          |
 |----------------------|--------|--------------------------------------|
 | `/auth/register`     | POST   | Register a new user                 |
 | `/auth/login`        | POST   | Log in as a user and receive a JWT  |
-| `/notes`             | GET    | Fetch all notes for authenticated user |
+| `/notes`             | GET    | Fetch all notes for the authenticated user |
 | `/notes`             | POST   | Create a new note                   |
 | `/notes/:id`         | PATCH  | Update a specific note              |
 | `/notes/:id`         | DELETE | Delete a specific note              |
-| `/admin/notes`       | GET    | Fetch limited notes data for admin  |
+
+### **Secret API Endpoints for Admin Backend**
+| Endpoint             | Method | Description                          |
+|----------------------|--------|--------------------------------------|
+| `/admin/notes`       | GET    | Fetch notes data for admin           |
+| `/admin/users`       | GET    | Fetch all users data                 |
+| `/admin/users/:id`   | GET    | Fetch a specific user's data         |
+| `/admin/users/:id`   | DELETE | Delete a specific user               |
+
+---
 
 ## **Technologies Used**
 - **Node.js**
@@ -62,36 +76,38 @@ This backend service handles user-specific functionalities, including authentica
 - **MongoDB**
 - **JWT Authentication**
 
-## **Postman Collection**
-Find the Postman collection for this backend [here](./Postman/UserBackend.postman_collection.json).
-```
-
 ---
 
-### **README Template for Admin Backend**
+### **README for Admin Backend**
 ```markdown
 # Admin Backend
 
 This backend service handles administrative operations, including user management, audit logging, and secure data sharing with the User Backend.
 
+---
+
 ## **Features**
 1. **Authentication**
+   - `POST /auth/register`: Register as an admin.
    - `POST /auth/login`: Log in as an admin and receive a JWT.
 
 2. **Administrative Operations**
-   - `GET /users`: Fetch all user profiles.
-   - `GET /users/:id`: Fetch details of a specific user.
-   - `DELETE /users/:id`: Delete a user profile.
-   - `GET /audit/notes`: Fetch notes data from the User Backend via secure API calls.
+   - `GET /auth/users`: Fetch all user profiles from the User Backend via secure API calls.
+   - `GET /auth/users/:id`: Fetch details of a specific user from the User Backend via secure API calls.
+   - `DELETE /auth/users/:id`: Delete a user profile from the User Backend via secure API calls.
+   - `GET /auth/notes`: Fetch notes data from the User Backend via secure API calls.
+   - `GET /auth/logs`: Fetch Audit logs data from the Admin Backend .
 
 3. **Cross-Backend Communication**
    - Secure API calls to fetch shared user and notes data from the User Backend.
 
+---
+
 ## **Setup Instructions**
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo-name.git
-   cd AdminBackend
+   git clone https://github.com/Sahil1551/Medoc_Assignment1.git
+   cd .\Backend2\
    ```
 
 2. Install dependencies:
@@ -99,27 +115,30 @@ This backend service handles administrative operations, including user managemen
    npm install
    ```
 
-3. Configure environment variables:
-   Create a `.env` file in the root directory and add:
-   ```env
-   MONGO_URI=<Your MongoDB URI>
-   JWT_SECRET=<Your JWT Secret>
-   USER_BACKEND_URL=<User Backend API URL>
-   ```
 
 4. Start the server:
    ```bash
-   npm start
+   npm dist/server.js
    ```
 
+---
+Here’s the updated **API Endpoints** section for the Admin Backend, aligned with the features you provided:
+
+---
+
 ## **API Endpoints**
-| Endpoint         | Method | Description                             |
-|------------------|--------|-----------------------------------------|
-| `/auth/login`    | POST   | Log in as an admin and receive a JWT    |
-| `/users`         | GET    | Fetch all user profiles                 |
-| `/users/:id`     | GET    | Fetch details of a specific user        |
-| `/users/:id`     | DELETE | Delete a user profile                   |
-| `/audit/notes`   | GET    | Fetch notes data from the User Backend  |
+| **Endpoint**         | **Method** | **Description**                                                                 |
+|-----------------------|------------|---------------------------------------------------------------------------------|
+| `/auth/register`      | POST       | Register as an admin.                                                          |
+| `/auth/login`         | POST       | Log in as an admin and receive a JWT.                                          |
+| `/auth/users`         | GET        | Fetch all user profiles from the User Backend via secure API calls.            |
+| `/auth/users/:id`     | GET        | Fetch details of a specific user from the User Backend via secure API calls.    |
+| `/auth/users/:id`     | DELETE     | Delete a user profile from the User Backend via secure API calls.              |
+| `/auth/notes`         | GET        | Fetch notes data from the User Backend via secure API calls.                   |
+| `/auth/logs`          | GET        | Fetch audit log data from the Admin Backend.                                   |
+
+---
+
 
 ## **Technologies Used**
 - **Node.js**
@@ -127,9 +146,6 @@ This backend service handles administrative operations, including user managemen
 - **TypeScript**
 - **MongoDB**
 - **JWT Authentication**
-
-## **Postman Collection**
-Find the Postman collection for this backend [here](./Postman/AdminBackend.postman_collection.json).
 ```
 
 ---
@@ -140,29 +156,16 @@ Find the Postman collection for this backend [here](./Postman/AdminBackend.postm
 
 This repository contains two backend services designed to showcase role-based access control (RBAC) and secure data sharing.
 
-## **Backends**
-1. [**User Backend**](./UserBackend/README.md): Handles user authentication, note management, and limited data sharing.
-2. [**Admin Backend**](./AdminBackend/README.md): Manages users, logs administrative actions, and fetches data securely from the User Backend.
+---
+
+
+---
 
 ## **Features**
-- Role-Based Access Control (RBAC)
-- Cross-Backend Secure API Communication
-- Input Validation and Error Handling
-- Modular Code Design
+- **Role-Based Access Control (RBAC)**
+- **Cross-Backend Secure API Communication**
+- **Input Validation and Error Handling**
+- **Modular Code Design**
 
-## **Setup**
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/your-repo-name.git
-   ```
-
-2. Follow the setup instructions in the respective backend directories.
-
-## **Deliverables**
-- **PowerPoint Presentation**: [Assignment Overview](./Presentation/AssignmentOverview.pptx)
-- **Postman Collections**:
-  - [User Backend APIs](./Postman/UserBackend.postman_collection.json)
-  - [Admin Backend APIs](./Postman/AdminBackend.postman_collection.json)
+---
 ```
-
-Let me know if you need help customizing this further! 😊
