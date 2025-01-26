@@ -59,11 +59,13 @@ router.delete('/users/:id', authMiddleware_1.validateAdminToken, (req, res) => _
         const { id } = req.params;
         // Fetch user by ID with specific fields
         const user = yield userModel_1.default.findByIdAndDelete(id);
-        if (!user) {
-            res.status(404).json({ message: "User not found" });
+        if (user) {
+            res.status(200).json({ message: "User Deleted successfully" });
             return;
         }
-        res.status(200).json({ message: "User Deleted successfully" });
+        else {
+            res.status(404).json({ message: "User not found" });
+        }
     }
     catch (error) {
         console.error("Error Deleting user :", error);

@@ -179,7 +179,7 @@ router.delete('/users/:id', (req, res) => __awaiter(void 0, void 0, void 0, func
                 Authorization: `Bearer ${adminToken}`,
             },
         });
-        if (response.data && response.data.data) {
+        if (response.data || response.data.data) {
             const adminId = extractAdminIdFromToken(adminToken);
             if (!adminId) {
                 res.status(401).json({ message: "Unauthorized: Invalid token" });

@@ -34,11 +34,11 @@ export const updateNote = async (req: Request, res: Response): Promise<void> => 
   try {
     const userId = (req.user as { id: string }).id;
     const noteId = req.params.id;
-    const { title, description } = req.body;
+    const { title, description,status } = req.body;
 
     const note = await Note.findOneAndUpdate(
       { _id: noteId, userId }, // Ensure the note belongs to the authenticated user
-      { title, description },
+      { title, description,status },
       { new: true, runValidators: true }
     );
 

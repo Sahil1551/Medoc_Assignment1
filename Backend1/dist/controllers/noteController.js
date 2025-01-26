@@ -49,9 +49,9 @@ const updateNote = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const userId = req.user.id;
         const noteId = req.params.id;
-        const { title, description } = req.body;
+        const { title, description, status } = req.body;
         const note = yield noteModel_1.default.findOneAndUpdate({ _id: noteId, userId }, // Ensure the note belongs to the authenticated user
-        { title, description }, { new: true, runValidators: true });
+        { title, description, status }, { new: true, runValidators: true });
         if (!note) {
             res.status(404).json({ message: 'Note not found' });
             return;

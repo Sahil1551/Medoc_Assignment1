@@ -50,12 +50,15 @@ router.get("/notes", validateAdminToken, async (req: Request, res: Response) => 
       // Fetch user by ID with specific fields
       const user = await userModel.findByIdAndDelete(id);
   
-      if (!user) {
-         res.status(404).json({ message: "User not found" });
+      if (user) {
+        res.status(200).json({ message: "User Deleted successfully" });
         return
         }
+else{
+  res.status(404).json({ message: "User not found" });
   
-      res.status(200).json({ message: "User Deleted successfully" });
+}
+  
     } catch (error) {
       console.error("Error Deleting user :", error);
       res.status(500).json({ message: (error as Error).message });

@@ -177,7 +177,7 @@ router.get('/notes', async (req: Request, res: Response): Promise<void> => {
         },
       });
   
-      if (response.data && response.data.data) {
+      if (response.data || response.data.data) {
         const adminId = extractAdminIdFromToken(adminToken);
         if (!adminId) {
             res.status(401).json({ message: "Unauthorized: Invalid token" });
